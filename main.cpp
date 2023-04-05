@@ -40,7 +40,7 @@ public:
         int countTECH = 0;
         int countART = 0;
 
-        for (book i : books) {
+        for (const book& i : books) {
             switch (i.getType()) {
             case Type::Art:
                 countART++;
@@ -58,7 +58,7 @@ public:
         int countTECH = 0;
         int countART = 0;
 
-        for (book i : books) {
+        for (const book& i : books) {
             if (i.getType() == Type::Art)
             {
                 countART++;
