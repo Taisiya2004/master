@@ -7,8 +7,8 @@
 
 class Car {
 private:
-    std::string model;
-    std::string brand;
+    const std::string model;
+    const std::string brand;
 public:
 
     const std::string& get_model()
@@ -20,9 +20,7 @@ public:
     }
 
     Car(const std::string& _model, const std::string& _brand) : model(_model), brand(_brand) {}
-    virtual void print() {
-        std::cout << brand << ": \n" << model << std::endl;
-    }
+    virtual void print() = 0;
 
     ~Car() {}
 };
