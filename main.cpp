@@ -60,7 +60,7 @@ int main() {
                 car = new Audi(model, brand);
             }
             else {
-                car = new Car(model, brand);
+                std::cout <<"Error " << std::endl;
             }
 
             cars.push_back(car);
