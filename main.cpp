@@ -4,71 +4,77 @@
 #include <string>
 #include <algorithm>
 
-using namespace std;
 
 class Car {
 private:
-    string model;
+    std::string model;
+    std::string brand;
 public:
 
-    string get_model()
+    const std::string& get_model()
     {
         return model;
     }
-
-    Car(const string& _model) : model(_model) {}
-    virtual void print() { 
-        cout << "Модель: " << model << endl;
+    const std::string& get_brand() {
+        return brand;
     }
 
-    virtual ~Car() {}
+    Car(const std::string& _model, const std::string& _brand) : model(_model), brand(_brand) {}
+    virtual void print() {
+        std::cout << brand << ": \n" << model << std::endl;
+    }
+
+    ~Car() {}
 };
 
 class Mercedes : public Car {
 public:
-    Mercedes(const string& _model) : Car(_model) {}
-    void print() {
-        cout << "Мерседес " << get_model() << endl;
+    Mercedes(const std::string& _model, const std::string& _brand) : Car(_model, _brand) {}
+    void print() override {
+        std::cout << get_brand() << ": \n" << get_model() << std::endl;
     }
 };
 
 class Audi : public Car {
 public:
-    Audi(const string& _model) : Car(_model) {}
+    Audi(const std::string& _model, const std::string& _brand) : Car(_model, _brand) {}
 
-    void print() {
-        cout << "Ауди " << get_model() << endl;
+    void print() override {
+        std::cout << get_brand() << ": \n" << get_model() << std::endl;
     }
 };
 
 int main() {
-    vector<Car*> cars; 
+    setlocale(LC_ALL, "Russian");
+    std::vector<Car*> cars;
 
-    ifstream file("cars.txt"); // открытие файла
+    std::ifstream file("cars.txt"); // открытие файла
     if (file.is_open()) {
-       
-        string brand, model;
-        while (file>>brand>>model) { 
+
+        std::string brand, model;
+        while (file >> brand >> model) {
 
             Car* car; //указатель на новый объект
             if (brand == "Мерседес") {
-                car = new Mercedes(model);
+                car = new Mercedes(model, brand);
             }
             else if (brand == "Ауди") {
-                car = new Audi(model);
+                car = new Audi(model, brand);
             }
             else {
-                car = new Car(model);
+                car = new Car(model, brand);
             }
 
-            cars.push_back(car); 
+            cars.push_back(car);
         }
-        
+
     }
     file.close(); // закрытие файла
-    for (auto car : cars) { car->print(); }; 
+    for (auto car : cars) { car->print(); };
 
     for (auto car : cars) { delete car; };
 
     return 0;
 }
+
+
