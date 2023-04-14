@@ -22,7 +22,7 @@ public:
     Car(const std::string& _model, const std::string& _brand) : model(_model), brand(_brand) {}
     virtual void print() = 0;
 
-    ~Car() {}
+    virtual ~Car() {}
 };
 
 class Mercedes : public Car {
